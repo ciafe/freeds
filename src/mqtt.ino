@@ -346,8 +346,8 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
         {
           INFOV("deserializeJson() Solax MQTT failed: %s\n", error.c_str());
         }
-        #endif
         else
+        #endif
         {
           inverter.wsolar = atof(payload);   // Potencia solar actual
         }
