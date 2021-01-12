@@ -333,7 +333,7 @@ void calcPwmProgressBar()
 {
   // Arreglos necesarios para mostrar el % correcto en caso de usar el dimmer low cost afectado por el fallo del 20%
   if (config.flags.dimmerLowCost) {
-    if (invert_pwm > 0) { pwmValue = round(((invert_pwm - 210) * 100.0) / (config.maxPwmLowCost - 210.0)); }
+    if (invert_pwm > 0) { pwmValue = round(((invert_pwm - config.minPwmLowCost) * 100.0) / (config.maxPwmLowCost - config.minPwmLowCost)); }
     else pwmValue = 0;
   } else {  
     pwmValue = round((invert_pwm * 100.0) / 1023.0);

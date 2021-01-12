@@ -1118,6 +1118,9 @@ void setWebConfig(void)
       config.offset_sim = value;
     }
 
+    if (comando == "minLowCost") {
+      config.minPwmLowCost = value;
+    }
     
     AsyncWebServerResponse *response = request->beginResponse(200);
     response->addHeader("Connection", "close");

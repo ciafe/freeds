@@ -378,6 +378,7 @@ struct CONFIG
   uint16_t domoticzIdx[3];
   uint16_t attachedLoadWatts;
   uint16_t maxPwmLowCost;
+  uint16_t minPwmLowCost;
 
   // CONTROL DE CONSUMO Y VERTIDO
   float KwToday;
@@ -426,7 +427,7 @@ struct CONFIG
   float offset_sim;
 
   // FREE MEMORY
-  uint8_t free[1039];
+  uint8_t free[1037];
 } config;
 
 struct METER
@@ -742,6 +743,7 @@ void defaultValues()
   config.domoticzIdx[1] = 0;
   config.domoticzIdx[2] = 0;
   config.maxPwmLowCost = 1073; // Max 1232
+  config.minPwmLowCost = 210;
   config.attachedLoadWatts = 2000;
 
   config.KwToday = 0;

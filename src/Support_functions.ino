@@ -825,6 +825,7 @@ void checkEEPROM(void) {
   if(config.eeinit == 0x13)
   {
     config.maxPwmLowCost = 1073; // Max 1232
+    config.minPwmLowCost = 210;
     config.eeinit = 0x14;
   }
 
