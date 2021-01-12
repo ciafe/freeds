@@ -423,8 +423,10 @@ struct CONFIG
   // Phase to be used
   uint8_t gridPhase;
 
+  float offset_sim;
+
   // FREE MEMORY
-  uint8_t free[1043];
+  uint8_t free[1039];
 } config;
 
 struct METER
@@ -771,6 +773,8 @@ void defaultValues()
 
   config.eeinit = eepromVersion;
   config.flags.wifi = false;
+
+  config.offset_sim = 500.0;
 }
 
 void configureTickers(void)

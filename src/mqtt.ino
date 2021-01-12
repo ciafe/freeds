@@ -329,6 +329,7 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
           timers.ErrorRecepcionDatos = millis();
           Error.RecepcionDatos = false;
           inverter.wgrid = atof(payload); // Potencia de red (Negativo: de red - Positivo: a red)
+          inverter.wgrid = inverter.wgrid - config.offset_sim; // Offset substraction to allow injection simulation by debug
           inverter.gridv = 230.0; // Tension de red
           
           if (!config.flags.changeGridSign) { inverter.wgrid *= -1.0; }

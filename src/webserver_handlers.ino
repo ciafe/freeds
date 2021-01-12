@@ -1113,6 +1113,11 @@ void setWebConfig(void)
       INFOV("pwmFrequency: %.02f\n", (float)(config.pwmFrequency / 10.0));
       saveEEPROM();
     }
+
+    if (comando == "offset") {
+      config.offset_sim = value;
+    }
+
     
     AsyncWebServerResponse *response = request->beginResponse(200);
     response->addHeader("Connection", "close");
