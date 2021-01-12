@@ -316,6 +316,7 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
     {
       if (strcmp(topic, config.Meter_mqtt) == 0)
       {
+        #if 0
         DeserializationError error = deserializeJson(root, payload, len);
 
         if (error)
@@ -323,11 +324,12 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
           INFOV("deserializeJson() Meter MQTT failed: %s\n", error.c_str());
         }
         else
+        #endif
         {
           timers.ErrorRecepcionDatos = millis();
           Error.RecepcionDatos = false;
-          inverter.wgrid = (float)root["ENERGY"]["Power"]; // Potencia de red (Negativo: de red - Positivo: a red) para usar con los datos de Tasmota
-          inverter.gridv = (float)root["ENERGY"]["Voltage"]; // Tension de red
+          inverter.wgrid = atof(payload); // Potencia de red (Negativo: de red - Positivo: a red)
+          inverter.gridv = 230.0; // Tension de red
           
           if (!config.flags.changeGridSign) { inverter.wgrid *= -1.0; }
         }
@@ -336,23 +338,17 @@ void onMqttMessage(char *topic, char *payload, AsyncMqttClientMessageProperties 
 
       if (strcmp(topic, config.Solax_mqtt) == 0)
       {
+        #if 0
         DeserializationError error = deserializeJson(root, payload, len);
 
         if (error)
         {
           INFOV("deserializeJson() Solax MQTT failed: %s\n", error.c_str());
         }
+        #endif
         else
         {
-          inverter.pv1c = (float)root["ENERGY"]["Pv1Current"]; // Corriente string 1
-          inverter.pv2c = (float)root["ENERGY"]["Pv2Current"]; // Corriente string 2
-          inverter.pv1v = (float)root["ENERGY"]["Pv1Voltage"]; // Tension string 1
-          inverter.pv2v = (float)root["ENERGY"]["Pv2Voltage"]; // Tension string 2
-          inverter.pw1 = (float)root["ENERGY"]["Pv1Power"];    // Potencia string 1
-          inverter.pw2 = (float)root["ENERGY"]["Pv2Power"];    // Potencia string 2
-          inverter.wtoday = (float)root["ENERGY"]["Today"];    // Potencia solar diaria
-          inverter.wsolar = (float)root["ENERGY"]["Power"];    // Potencia solar actual
-          inverter.temperature = (float)root["ENERGY"]["Temperature"];    // Temperatura Inversor
+          inverter.wsolar = atof(payload);   // Potencia solar actual
         }
         return;
       }
